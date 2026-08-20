@@ -1,65 +1,132 @@
-import Image from "next/image";
+import Link from "next/link";
+import StatGrid from "./components/ui/StatGrid";
+import SectionHeading from "./components/ui/SectionHeading";
+
+const STATS = [
+  { label: "Programs", value: "50+" },
+  { label: "Faculty", value: "100+" },
+  { label: "Students Enrolled", value: "5,000+" },
+  { label: "Nationalities", value: "100+" },
+];
+
+const FEATURED_COLLEGES = [
+  {
+    name: "College of Business Administration",
+    slug: "college-of-business-administration",
+    description:
+      "Shaping future business leaders through accredited undergraduate and graduate programs.",
+  },
+  {
+    name: "College of Engineering and IT",
+    slug: "college-of-engineering-and-it",
+    description:
+      "Hands-on engineering and technology education backed by industry partnerships.",
+  },
+  {
+    name: "College of Architecture, Art and Design",
+    slug: "college-of-architecture-art-and-design",
+    description:
+      "Creative and technical training across architecture, design and the arts.",
+  },
+];
+
+const LATEST_NEWS = [
+  {
+    title: "AUE Launches New Scholarship Program for 2026",
+    date: "August 2026",
+    excerpt:
+      "A new merit-based scholarship initiative opens applications for the upcoming academic year.",
+  },
+  {
+    title: "College of Engineering Signs MOU with Industry Partner",
+    date: "July 2026",
+    excerpt:
+      "The partnership creates new internship and research opportunities for students.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Welcome to American University in the Emirates (AUE)
+    <div className="flex flex-1 flex-col">
+      {/* Hero */}
+      <section className="bg-zinc-900 px-6 py-24 text-white">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl font-bold sm:text-5xl">
+            Welcome to American University in the Emirates
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-6 text-lg text-zinc-300">
+            Empowering students through internationally accredited programs,
+            world-class faculty, and a vibrant campus community in Dubai.
           </p>
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="/admissions"
+              className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold hover:bg-blue-500"
+            >
+              Apply Now
+            </Link>
+            <Link
+              href="/academics"
+              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold hover:bg-white/10"
+            >
+              Explore Programs
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Stats */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <StatGrid stats={STATS} />
         </div>
-      </main>
+      </section>
+
+      {/* Featured Colleges */}
+      <section className="bg-zinc-50 px-6 py-20 dark:bg-zinc-950">
+        <SectionHeading
+          eyebrow="Academics"
+          title="Our Colleges"
+          subtitle="Explore the colleges shaping the next generation of graduates."
+        />
+        <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-3">
+          {FEATURED_COLLEGES.map((college) => (
+            <Link
+              key={college.slug}
+              href={`/colleges/${college.slug}`}
+              className="rounded-xl border border-black/10 p-6 transition hover:border-blue-500 hover:shadow-md"
+            >
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+                {college.name}
+              </h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                {college.description}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Latest News */}
+      <section className="px-6 py-20">
+        <SectionHeading eyebrow="News" title="Latest at AUE" />
+        <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
+          {LATEST_NEWS.map((post) => (
+            <div
+              key={post.title}
+              className="rounded-xl border border-black/10 p-6"
+            >
+              <p className="text-xs font-medium text-zinc-400">{post.date}</p>
+              <h3 className="mt-2 font-semibold text-zinc-900 dark:text-zinc-50">
+                {post.title}
+              </h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                {post.excerpt}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
